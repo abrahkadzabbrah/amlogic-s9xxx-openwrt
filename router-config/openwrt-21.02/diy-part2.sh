@@ -12,7 +12,7 @@
 sed -i 's/luci-theme-bootstrap/luci-theme-material/g' feeds/luci/collections/luci/Makefile
 
 # Add the default password for the 'root' user（Change the empty password to 'password'）
-sed -i 's/root::0:0:99999:7:::/root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0:0:99999:7:::/g' package/base-files/files/etc/shadow
+# sed -i 's/root::0:0:99999:7:::/root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0:0:99999:7:::/g' package/base-files/files/etc/shadow
 
 # Set etc/openwrt_release
 sed -i "s|DISTRIB_REVISION='.*'|DISTRIB_REVISION='R$(date +%Y.%m.%d)'|g" package/base-files/files/etc/openwrt_release
@@ -31,6 +31,16 @@ svn co https://github.com/ophub/luci-app-amlogic/trunk package/luci-app-amlogic
 
 # Add p7zip
 svn co https://github.com/hubutui/p7zip-lede/trunk package/lean/p7zip
+
+# luci-app-passwall
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk package/openwrt-passwall
+
+# luci-app-openclash
+svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/openwrt-openclash
+pushd package/openwrt-openclash/tools/po2lmo && make && sudo make install 2>/dev/null && popd
+
+# luci-app-3ginfo-lie
+svn co https://github.com/4IceG/luci-app-3ginfo-lite/trunk package/luci-app-3ginfo-lite
 
 # Add autocore
 # svn co https://github.com/ophub/amlogic-s9xxx-openwrt/trunk/amlogic-s9xxx/common-files/patches/autocore package/lean/autocore
